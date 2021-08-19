@@ -1,0 +1,19 @@
+{
+  "name": "nodefiles2",
+  "version": "14.17.5",
+  "description": "simple stuff",
+  "main": "hello.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tathagat11/first-node-app.git"
+  },
+  "author": "tathagat11",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tathagat11/first-node-app/issues"
+  },
+  "homepage": "https://github.com/tathagat11/first-node-app#readme"
+}
