@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+  <html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!--  leaflet css -->
+    <!--  leaflet css -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     
     <!-- Bootstrap CSS -->
@@ -12,46 +12,55 @@
 
     <title>Hello dudes!</title>
     <style>
-      #map {
-        width: 100%;
-        height: 50vh;
-      }
-    </style>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Tathagat</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="file1">file-1</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="file2">file-2</a>
-        </li>
-      </ul>
+    #map {
+      width: 100%;
+      height: 50vh;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Tathagat</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="file1">file-1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="file2">file-2</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
   <p>This is some text.</p>
   <p>This is another text.</p>
   <div id ="map"></div>
-    <!-- Optional JavaScript; choose one of the two! -->
-    </html>
+  <!-- Optional JavaScript; choose one of the two! -->
+  </html>
   <!-- leaflet js -->
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script>
-  //map initialization
-  var map = L.map('map').setView([12.984984344465339, 77.7592441887455], 18);
-  // default layer initialization
-  var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-    maxZoom: 20,
-    subdomains:['mt0','mt1','mt2','mt3']
+
+//map initialization
+var map = L.map('map').setView([12.984984344465339, 77.7592441887455], 18);
+
+// default layer initialization
+var  googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+  maxZoom: 20,
+  subdomains:['mt0','mt1','mt2','mt3']
 }).addTo(map);
+
+  //dark map
+  var darkMap = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+    maxZoom: 20,
+    attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+  });
+  
   //icon for marker (not working)
 /*var greenIcon = L.icon({
     iconUrl: 'leaf-green.png',
@@ -62,19 +71,34 @@
     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
     shadowAnchor: [4, 62],  // the same for the shadow
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});*/
+  });*/
 
   //marker function
-  var myMarker = L.marker([12.984984344465339, 77.7592441887455],{draggable:true});
-  var popup = myMarker.bindPopup('My house ' + myMarker.getLatLng()).openPopup();
+  var myMarker = L.marker([12.984984344465339, 77.7592441887455],);
+  
+  var secondMarker = L.marker([12.985659807467941, 77.760477432018],{draggable:true});
+  
+  var popup = myMarker.bindPopup('My house ' + myMarker.getLatLng().lat+ ','+myMarker.getLatLng().lng).openPopup();
   popup.addTo(map);
+
+//Layer controls
+var baseMaps = {
+  "Sattelite View": googleSat,
+  "Dark": darkMap
+};
+
+var overlayMaps = {
+  "Place marker 1": myMarker,
+  "Place marker 2": secondMarker
+};
+L.control.layers(baseMaps,overlayMaps,{collapsed: false}).addTo(map);
 </script>
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
-    </script>
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+</script>
+<!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-    -->
-  </body>
+  -->
+</body>
